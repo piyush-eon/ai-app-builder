@@ -2,7 +2,7 @@
 
 ## Work in progress
 
-<img width="1470" height="919" alt="Screenshot 2026-05-25 at 12 32 56 AM" src="https://github.com/user-attachments/assets/3dd77088-d207-44f9-8717-7a3c709e040b" />
+<img width="1466" height="920" alt="forge landing" src="https://github.com/user-attachments/assets/df343943-592e-48a5-83bb-a65f80eb6028" />
 
 ---
 
