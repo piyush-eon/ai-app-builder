@@ -13,7 +13,7 @@ export const FEATURES = [
   {
     icon: Zap,
     label: "Instant generation",
-    desc: "Describe your app in plain English. Gemini 2.0 Flash returns production-ready React + Tailwind code in seconds.",
+    desc: "Describe your app in plain English. Gemini 3.5 Flash returns production-ready React + Tailwind code in seconds.",
   },
   {
     icon: Eye,
