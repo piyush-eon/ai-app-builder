@@ -1,5 +1,0 @@
-{
-  "functions": {
-    "app/api/improve/route.ts": { "runtime": "nodejs22.x" }
-  }
-}
