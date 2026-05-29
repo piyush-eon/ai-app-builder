@@ -1,4 +1,3 @@
-import { redirect } from "next/navigation";
 import { WorkspaceClient } from "@/components/WorkspaceClient";
 import { getWorkspaceUser, getWorkspaceById } from "@/actions/workspace";
 
