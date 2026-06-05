@@ -60,8 +60,8 @@ export const STEPS = [
   },
   {
     number: "04",
-    label: "Export or deploy",
-    desc: "Open in CodeSandbox, copy the source, or deploy to a live URL — all in one click.",
+    label: "Export and deploy",
+    desc: "Open in CodeSandbox, copy the source, and deploy to a live URL.",
   },
 ];
 

@@ -49,7 +49,7 @@ export default async function ProjectsPage() {
             </p>
           </div>
           <Link href="/">
-            <Button>
+            <Button className={"cursor-pointer"}>
               <Zap className="h-3 w-3 fill-black" />
               New project
             </Button>
