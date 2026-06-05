@@ -27,6 +27,7 @@ export const PRICING_PLANS = [
     description: "Start building. No credit card required.",
     price: 0,
     featured: false,
+    planId: null,
     active: true,
     features: ["10 generations / month", "Live preview", "Export to zip"],
   },
@@ -36,6 +37,7 @@ export const PRICING_PLANS = [
     description: "For developers who build regularly.",
     price: 9,
     featured: true,
+    planId: "cplan_3ELT5UszFXoueNhYatkwzhCQMhk",
     active: false,
     features: [
       "50 generations / month",
@@ -50,6 +52,7 @@ export const PRICING_PLANS = [
     description: "For power users who ship fast.",
     price: 29,
     featured: false,
+    planId: "cplan_3ELTJNOQYS4qzwOUWg6w2m6Me5U",
     active: false,
     features: [
       "150 generations / month",
