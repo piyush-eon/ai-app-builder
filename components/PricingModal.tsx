@@ -76,8 +76,8 @@ export function PricingModal({
                 className={cn(
                   "relative flex flex-col rounded-2xl border p-5 transition-colors",
                   plan.featured
-                    ? "border-blue-500/25 bg-blue-500/4"
-                    : "border-white/8 bg-[#0a0a0a]"
+                    ? "border-blue-500/50 bg-blue-500/4"
+                    : "border-white/12 bg-[#0a0a0a]"
                 )}
               >
                 {/* Most popular pill */}
