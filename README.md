@@ -1,6 +1,6 @@
 # Full Stack Agentic App Builder with Next JS, Supabase, Gemini AI, Cline SDK, Shadcn UI Tutorial 🔥🔥
 
-## Work in progress
+## https://www.youtube.com/watch?v=UUK93oW0SaA
 
 <img width="1466" height="920" alt="forge landing" src="https://github.com/user-attachments/assets/df343943-592e-48a5-83bb-a65f80eb6028" />
 
