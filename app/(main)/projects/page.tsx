@@ -6,6 +6,7 @@ import Link from "next/link";
 import { getUserProjects } from "@/actions/projects";
 import { BlueTitle } from "@/components/reusables";
 import { Button } from "@/components/ui/button";
+import { ImportProjectButton } from "@/components/ImportProjectButton";
 
 // ─── Empty state ──────────────────────────────────────────────────────────────
 
@@ -48,12 +49,15 @@ export default async function ProjectsPage() {
               All your AI-generated apps in one place.
             </p>
           </div>
-          <Link href="/">
-            <Button className={"cursor-pointer"}>
-              <Zap className="h-3 w-3 fill-black" />
-              New project
-            </Button>
-          </Link>
+          <div className="flex items-center gap-2">
+            <ImportProjectButton />
+            <Link href="/">
+              <Button className={"cursor-pointer"}>
+                <Zap className="h-3 w-3 fill-black" />
+                New project
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {/* Grid */}
