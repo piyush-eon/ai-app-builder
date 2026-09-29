@@ -26,7 +26,6 @@ import JSZip from "jszip";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { PricingModal } from "@/components/PricingModal";
-import { exportWorkspace } from "@/actions/workspace";
 import type { FileData, StatusStep } from "@/types/workspace";
 
 // ─── Placeholder ──────────────────────────────────────────────────────────────
@@ -91,8 +90,6 @@ interface CodePanelProps {
   appTitle: string | null;
   isImproving: boolean;
   isProUser: boolean;
-  workspaceId: string | null;
-  userId: string;
 }
 
 // ─── SandpackInner ────────────────────────────────────────────────────────────
@@ -111,8 +108,6 @@ function SandpackInner({
   appTitle,
   isImproving,
   isProUser,
-  workspaceId,
-  userId,
 }: {
   isGenerating: boolean;
   statusLog: StatusStep[];
@@ -124,13 +119,10 @@ function SandpackInner({
   appTitle: string | null;
   isImproving: boolean;
   isProUser: boolean;
-  workspaceId: string | null;
-  userId: string;
 }) {
   const { sandpack, listen } = useSandpack();
   const [previewError, setPreviewError] = useState<string | null>(null);
   const [isExporting, setIsExporting] = useState(false);
-  const [isExportingWorkspace, setIsExportingWorkspace] = useState(false);
   const [improveInput, setImproveInput] = useState("");
   const [showImproveInput, setShowImproveInput] = useState(false);
   const unsubscribeRef = useRef<(() => void) | null>(null);
@@ -294,36 +286,6 @@ root.render(<React.StrictMode><App /></React.StrictMode>);`
     }
   };
 
-  // ── Export workspace as JSON ───────────────────────────────────────────────
-  const handleExportWorkspace = async () => {
-    if (isExportingWorkspace || !workspaceId) return;
-    setIsExportingWorkspace(true);
-    try {
-      const data = await exportWorkspace(workspaceId, userId);
-      if (!data) return;
-
-      const blob = new Blob([JSON.stringify(data, null, 2)], {
-        type: "application/json",
-      });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      const slug = appTitle
-        ? appTitle
-            .toLowerCase()
-            .replace(/[^a-z0-9]+/g, "-")
-            .replace(/^-|-$/g, "")
-        : "forge-app";
-      a.download = `${slug}-workspace.json`;
-      a.click();
-      URL.revokeObjectURL(url);
-    } catch (err) {
-      console.error("Workspace export failed:", err);
-    } finally {
-      setIsExportingWorkspace(false);
-    }
-  };
-
   const currentStepLabel =
     statusLog[statusLog.length - 1]?.label ?? "Generating…";
 
@@ -421,28 +383,13 @@ root.render(<React.StrictMode><App /></React.StrictMode>);`
             variant="ghost"
             onClick={handleExportZip}
             disabled={isExporting || !fileData}
-            className="cursor-pointer text-white/60 hover:text-white/90"
           >
             {isExporting ? (
               <Loader2 className="h-3.5 w-3.5 animate-spin" />
             ) : (
               <Download className="h-3.5 w-3.5" />
             )}
-            Download ZIP
-          </Button>
-
-          <Button
-            variant="ghost"
-            onClick={handleExportWorkspace}
-            disabled={isExportingWorkspace || !workspaceId}
-            className="cursor-pointer text-white/60 hover:text-white/90"
-          >
-            {isExportingWorkspace ? (
-              <Loader2 className="h-3.5 w-3.5 animate-spin" />
-            ) : (
-              <Download className="h-3.5 w-3.5" />
-            )}
-            Export Workspace
+            Download
           </Button>
         </div>
       </div>
@@ -548,8 +495,6 @@ export function CodePanel({
   appTitle,
   isImproving,
   isProUser,
-  workspaceId,
-  userId,
 }: CodePanelProps) {
   const [activeTab, setActiveTab] = useState<ActiveTab>("preview");
 
@@ -593,8 +538,6 @@ export function CodePanel({
           appTitle={appTitle}
           isImproving={isImproving}
           isProUser={isProUser}
-          workspaceId={workspaceId}
-          userId={userId}
         />
       </SandpackProvider>
     </div>

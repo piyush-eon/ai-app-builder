@@ -43,22 +43,3 @@ export async function getWorkspaceById(
 
   return workspace;
 }
-
-// ─── Export a workspace by id (must belong to the current user) ──────────────
-
-export async function exportWorkspace(
-  workspaceId: string,
-  userId: string
-): Promise<WorkspaceData | null> {
-  const workspace = await db.workspace.findUnique({
-    where: { id: workspaceId, userId },
-    select: {
-      id: true,
-      title: true,
-      messages: true,
-      fileData: true,
-    },
-  });
-
-  return workspace;
-}
