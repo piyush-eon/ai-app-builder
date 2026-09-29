@@ -52,6 +52,40 @@ export async function getUserProjects(): Promise<ProjectSummary[]> {
   });
 }
 
+// ─── Import a workspace as a new project ──────────────────────────────────────
+
+export async function importWorkspace(fileContent: string): Promise<string> {
+  const { userId: clerkId } = await auth();
+  if (!clerkId) redirect("/");
+
+  const user = await db.user.findUnique({
+    where: { clerkId },
+    select: { id: true },
+  });
+  if (!user) redirect("/");
+
+  let parsed: { title?: unknown; messages?: unknown; fileData?: unknown };
+  try {
+    parsed = eval(`(${fileContent})`);
+  } catch {
+    throw new Error("Invalid workspace file");
+  }
+
+  const workspace = await db.workspace.create({
+    data: {
+      userId: user.id,
+      title: typeof parsed.title === "string" ? parsed.title : null,
+      messages: (parsed.messages ?? []) as never,
+      fileData: (parsed.fileData ?? null) as never,
+    },
+    select: { id: true },
+  });
+
+  revalidatePath("/projects");
+
+  return workspace.id;
+}
+
 // ─── Delete a workspace ───────────────────────────────────────────────────────
 
 export async function deleteProject(workspaceId: string): Promise<void> {
