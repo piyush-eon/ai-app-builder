@@ -64,19 +64,23 @@ export async function importWorkspace(fileContent: string): Promise<string> {
   });
   if (!user) redirect("/");
 
-  let parsed: { title?: unknown; messages?: unknown; fileData?: unknown };
+  let parsed: unknown;
   try {
-    parsed = eval(`(${fileContent})`);
+    parsed = JSON.parse(fileContent);
   } catch {
     throw new Error("Invalid workspace file");
   }
+  if (typeof parsed !== "object" || parsed === null || Array.isArray(parsed)) {
+    throw new Error("Invalid workspace file");
+  }
+  const workspaceData = parsed as Record<string, unknown>;
 
   const workspace = await db.workspace.create({
     data: {
       userId: user.id,
-      title: typeof parsed.title === "string" ? parsed.title : null,
-      messages: (parsed.messages ?? []) as never,
-      fileData: (parsed.fileData ?? null) as never,
+      title: typeof workspaceData.title === "string" ? workspaceData.title : null,
+      messages: (workspaceData.messages ?? []) as never,
+      fileData: (workspaceData.fileData ?? null) as never,
     },
     select: { id: true },
   });
